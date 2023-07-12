@@ -160,6 +160,7 @@ def main():
 
     reloj = pygame.time.Clock()
     hecho = False
+    puntuacion = 0
 
     while not hecho:
         for evento in pygame.event.get():
@@ -192,14 +193,22 @@ def main():
             cuarto_actual_no = (cuarto_actual_no - 1) % len(cuartos)
             cuarto_actual = cuartos[cuarto_actual_no]
             protagonista.rect.x = 790
+            puntuacion += 10
         if protagonista.rect.x > 801:
             cuarto_actual_no = (cuarto_actual_no + 1) % len(cuartos)
             cuarto_actual = cuartos[cuarto_actual_no]
             protagonista.rect.x = 0
+            puntuacion += 10
 
         pantalla.fill(NEGRO)
         desplazarsprites.draw(pantalla)
         cuarto_actual.pared_lista.draw(pantalla)
+
+        # Dibujar puntuación en la pantalla
+        fuente = pygame.font.Font(None, 36)
+        texto_puntuacion = fuente.render("Puntuación: " + str(puntuacion), True, BLANCO)
+        pantalla.blit(texto_puntuacion, (20, 30))
+
         pygame.display.flip()
 
         reloj.tick(60)
@@ -208,3 +217,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
